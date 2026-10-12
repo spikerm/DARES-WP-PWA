@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Dares Piketrooster
  * Description: Piketgroepen, medewerkers, kalender, widgets en veilige overdracht via de website.
- * Version: 2.8.2
+ * Version: 2.8.3
  * Author: Dares
  * Text Domain: dares-piketrooster
  * Requires PHP: 7.4
  */
 if (!defined('ABSPATH')) exit;
 final class Dares_Piketrooster {
- const VER='2.8.2';
+ const VER='2.8.3';
  public static function init(){
   add_action('admin_menu',[__CLASS__,'menu']);
   add_action('admin_post_dares_piket_save',[__CLASS__,'save']);
@@ -86,7 +86,7 @@ final class Dares_Piketrooster {
  static function date_label($d){return wp_date('d-m-Y H:i',strtotime($d.' UTC') - (new DateTimeImmutable($d,new DateTimeZone('UTC')))->getOffset());}
  static function display_date($d){return date_i18n('d-m-Y H:i',strtotime($d.' UTC'));}
  static function shortcode($atts=[]){
-  $a=shortcode_atts(['groep'=>0,'wisselen'=>'ja','volgende'=>'ja','telefoon'=>'nee','contact'=>'nee','contact_openbaar'=>'nee','kop'=>'ja','logo'=>'','rotatie'=>'nee','interval'=>8,'pwa_knop'=>'ja'],(array)$atts,'dares_piket');
+  $a=shortcode_atts(['groep'=>0,'wisselen'=>'ja','volgende'=>'ja','telefoon'=>'nee','contact'=>'nee','contact_openbaar'=>'nee','kop'=>'ja','logo'=>'','rotatie'=>'nee','interval'=>8,'pwa_knop'=>'standaard'],(array)$atts,'dares_piket');
   $gid=absint($a['groep']);
   $logo=esc_url($a['logo']);
   $out='<div class="dares-piket-panel" data-piket-refresh="1"';
@@ -132,7 +132,8 @@ final class Dares_Piketrooster {
   }
   if(!$gid&&!$visible_group)$out.='<section class="dares-piket-card"><p>Er zijn geen actieve of toekomstige piketdiensten ingepland.</p></section>';
   $out.='</div>';
-  if($a['pwa_knop']==='ja' && class_exists('Dares_Piket_PWA') && Dares_Piket_PWA::active()){
+  $button_enabled=$a['pwa_knop']==='ja'||($a['pwa_knop']!=='nee' && !empty(Dares_Piket_V2::settings()['pwa_button']));
+  if($button_enabled && class_exists('Dares_Piket_PWA') && Dares_Piket_PWA::active()){
    $url=Dares_Piket_PWA::endpoint('app');
    $out.='<div class="dares-piket-pwa-link"><a href="'.esc_url($url).'" class="dares-piket-pwa-open" aria-label="Open DARES Piket-app">📱 Open DARES Piket-app <span aria-hidden="true">↗</span></a></div>';
   }
