@@ -1,0 +1,33 @@
+ .dares-pwa-standalone-wrap{max-width:980px;margin:24px auto;padding:0 16px}.dares-pwa-app{color:#f4f7fd;background:#101c2c;border-radius:18px;overflow:hidden;font:15px/1.5 system-ui,sans-serif;box-shadow:0 12px 40px #0002}.dares-pwa-app *{box-sizing:border-box}.dares-pwa-top{display:flex;align-items:center;gap:12px;background:#f4c400;color:#13263a;padding:14px 20px}.dares-pwa-top img{border-radius:9px}.dares-pwa-top div{flex:1}.dares-pwa-top small{display:block}.dares-pwa-top span{font-size:12px;font-weight:700}.dares-pwa-top .is-offline{color:#8c1f18}.dares-pwa-hero{padding:26px 22px;background:linear-gradient(120deg,#173551,#101c2c)}.dares-pwa-eyebrow{font-size:11px;letter-spacing:.11em;color:#f4c400;font-weight:800}.dares-pwa-hero h2{font-size:26px;color:#fff;margin:9px 0 3px}.dares-pwa-hero p{margin:0 0 12px}.dares-pwa-hero small,.dares-pwa-next small{opacity:.77}.dares-pwa-next{border-top:1px solid #ffffff25;padding:17px 22px}.dares-pwa-next p{margin:3px 0}.dares-pwa-nav{display:flex;flex-wrap:wrap;gap:10px;padding:15px 22px}.dares-pwa-nav a,.dares-pwa-footer button{background:#f4c400!important;color:#14243b!important;font-weight:700;border:0;border-radius:10px;padding:10px 14px;text-decoration:none}.dares-pwa-content{background:#fff;color:#14243b;padding:16px;overflow-x:auto}.dares-pwa-footer{padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}.dares-pwa-footer p{width:100%;font-size:12px;opacity:.75;margin:0}.dares-pwa-footer span{font-size:12px;opacity:.85}@media(max-width:560px){.dares-pwa-top,.dares-pwa-hero,.dares-pwa-next,.dares-pwa-nav,.dares-pwa-footer{padding-left:15px;padding-right:15px}.dares-pwa-hero h2{font-size:22px}.dares-pwa-nav a{width:100%;text-align:center}}.dares-pwa-push{margin:16px 0;padding:16px;border:1px solid #e4b900;border-radius:12px;background:#15283f;color:#fff}.dares-pwa-push button{border:0;border-radius:7px;padding:9px 12px;margin:5px;background:#f4c400;color:#102030;font-weight:700;cursor:pointer}.dares-pwa-push [data-dares-push-status]{font-size:13px;min-height:18px}
+
+/* v2.3: self-contained app canvas, independent of the WordPress theme. */
+html:has(body.dares-piket-app-document){margin-top:0!important;background:#101c2c!important;scroll-padding-top:0}
+body.dares-piket-app-document{margin:0!important;padding:0!important;min-height:100dvh;background:#101c2c!important;color:#fff;overflow-x:hidden;font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.dares-piket-app-document #wpadminbar{display:none!important}
+body.dares-piket-app-document .dares-pwa-standalone-wrap{width:100%;max-width:850px;margin:0 auto!important;padding:0!important}
+body.dares-piket-app-document .dares-pwa-app{border-radius:0;box-shadow:none;min-height:100dvh}
+body.dares-piket-app-document .dares-pwa-content{min-width:0;overflow-wrap:anywhere}
+body.dares-piket-app-document .dares-pwa-content input,body.dares-piket-app-document .dares-pwa-content select,body.dares-piket-app-document .dares-pwa-content textarea{max-width:100%;box-sizing:border-box}
+body.dares-piket-app-document .dares-pwa-content form{max-width:100%}
+@media(max-width:560px){body.dares-piket-app-document .dares-pwa-content{padding:14px 12px}body.dares-piket-app-document .dares-pwa-top{padding-top:max(14px,env(safe-area-inset-top));}}
+
+/* v2.5: mobile-friendly organization-wide yearly roster */
+.dares-pwa-year{padding:18px 16px;background:#f3f6fa;color:#132c46;scroll-margin-top:12px}
+.dares-pwa-year-head{display:flex;justify-content:space-between;align-items:start;gap:14px;margin-bottom:15px}
+.dares-pwa-year-head small{font-size:11px;color:#527292;font-weight:800;letter-spacing:.07em}
+.dares-pwa-year-head h2{font-size:24px;margin:3px 0;color:#112e4e}
+.dares-pwa-year-head p{margin:0;color:#52708c;font-size:13px}
+.dares-pwa-year-controls{display:flex;gap:6px}.dares-pwa-year-controls a{display:grid;place-items:center;text-decoration:none;color:#132c46;background:#f4c400;border-radius:9px;min-width:39px;min-height:39px;font-weight:800}
+.dares-pwa-month-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.dares-pwa-month{border:1px solid #d7e1ec;background:white;border-radius:12px;min-width:0;overflow:hidden}
+.dares-pwa-month[open]{grid-column:1/-1;border-color:#cb9b00}
+.dares-pwa-month summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:7px;padding:12px;font-weight:750;color:#0e3050}
+.dares-pwa-month summary::-webkit-details-marker{display:none}.dares-pwa-month summary small{font-weight:500;color:#5e748d;font-size:11px;text-align:right}
+.dares-pwa-month[open] summary{background:#ffed9e}.dares-pwa-month-events{padding:10px;display:grid;gap:8px}
+.dares-pwa-event{padding:10px;border-radius:8px;background:#e8f1fd;border-left:3px solid #2363a0;display:grid;gap:2px;overflow-wrap:anywhere}
+.dares-pwa-event.is-absence{background:#fff1d8;border-color:#e4a21c}.dares-pwa-event strong{font-size:14px}.dares-pwa-event span{font-size:12px;color:#425c76}.dares-pwa-event time{font-size:12px;color:#214467;font-weight:650}.dares-pwa-empty{font-size:13px;color:#697a8e}
+@media(max-width:480px){.dares-pwa-month-grid{grid-template-columns:1fr 1fr;gap:7px}.dares-pwa-month summary{display:block;padding:10px}.dares-pwa-month summary small{display:block;text-align:left}.dares-pwa-year-head h2{font-size:21px}}
+
+.dares-pwa-personal{margin:16px 0;padding:16px;border:1px solid #dfE4eb;border-radius:14px;background:#fff;color:#18283a}.dares-pwa-personal h2{margin:0 0 12px;font-size:19px}.dares-pwa-personal h3{margin:20px 0 8px;font-size:16px}.dares-pwa-attention{border-radius:12px;padding:14px;background:#fff3c9;border:1px solid #edc65d}.dares-pwa-confirm{display:block;background:#174e84;color:#fff;padding:12px 16px;border:0;border-radius:9px;font-weight:700;width:100%;cursor:pointer}.dares-pwa-confirmed{padding:10px;border-radius:8px;background:#e8f6ed;color:#205938}.dares-pwa-absence{display:flex;flex-direction:column;gap:4px;margin:8px 0;padding:10px 12px;background:#fff3df;border-left:4px solid #d18c23;border-radius:7px;font-size:14px}.dares-pwa-absence small{color:#664d2f}
+
+.dares-p2000-history{margin:20px 0}.dares-p2000-item{border:1px solid #dce3e9;border-left:4px solid #e7b62e;padding:12px;margin:10px 0;border-radius:10px;background:#fff;color:#102d4c}.dares-p2000-item>div{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.dares-p2000-item time{font-size:.8rem}.dares-p2000-item button{padding:7px 11px;border-radius:8px}

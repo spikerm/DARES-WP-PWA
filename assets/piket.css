@@ -1,0 +1,73 @@
+.dares-piket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,265px),1fr));gap:16px;margin:16px 0}.dares-piket-card{border:1px solid #dbe3ea;border-radius:14px;padding:20px;background:#fff;color:#142438;box-shadow:0 4px 14px #10243b0c}.dares-piket-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700}.dares-piket-status{color:#16844c;font-size:.8em;white-space:nowrap}.dares-piket-name{font-size:1.5em;font-weight:750;margin-top:18px}.dares-piket-dates,.dares-piket-next{font-size:.88em;color:#526273}.dares-piket-change{border-top:1px solid #e4e9ef;margin-top:18px;padding-top:14px;display:grid;gap:8px}.dares-piket-change select,.dares-piket-change button{width:100%;border:1px solid #cdd5df;border-radius:8px;padding:9px 12px}.dares-piket-change button{background:#1454a3;color:#fff;cursor:pointer;font-weight:650}.dares-piket-change button:disabled{opacity:.6;cursor:wait}.dares-piket-message{font-size:.85em}.dares-piket-calendar{margin:20px 0;overflow-x:auto}.dares-calendar-grid{min-width:560px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.dares-cal-head{text-align:center;background:#e7edf4;padding:8px;color:#21354b;font-weight:700}.dares-cal-empty{background:#f4f6fa;min-height:75px}.dares-cal-day{min-height:85px;border:1px solid #e3e8ee;padding:7px;background:#fff;color:#23364c}.dares-cal-entry{background:#e6f0fe;border-radius:5px;padding:4px;margin-top:4px;font-size:12px;overflow-wrap:anywhere}
+
+/* DARES gele widgetkop, toegepast op shortcode én WordPress-widget */
+.dares-piket-panel{overflow:hidden;background:#fff;border:1px solid #d3d9df;border-radius:7px;box-shadow:0 2px 5px rgba(0,0,0,.08);color:#102338;margin:10px 0 18px}
+.dares-piket-topbar{display:flex;align-items:center;gap:9px;min-height:46px;background:#ffc400;color:#091d35;border-bottom:1px solid #dba900;font-size:14px;font-weight:800;padding:10px 14px}
+.dares-piket-logo{width:22px;height:22px;object-fit:contain;flex-shrink:0}
+.dares-piket-logo-default{display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;font-size:19px}
+.dares-piket-panel .dares-piket-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:0;padding:14px}
+.dares-piket-panel .dares-piket-card{border-radius:9px;padding:15px;box-shadow:none}
+.dares-piket-panel .dares-piket-card+.dares-piket-card{margin-top:0}
+.dares-piket-panel .dares-piket-name{font-size:1.25em;margin-top:15px}
+.dares-piket-contacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.dares-piket-contact{display:inline-flex;align-items:center;max-width:100%;overflow-wrap:anywhere;padding:7px 9px;background:#f0f5fc;color:#144f98;border:1px solid #dbe7f5;border-radius:7px;font-size:13px;text-decoration:none!important}
+.dares-piket-contact:hover{background:#e0edff}
+.dares-piket-panel .dares-piket-change button{background:#1857a4;border-color:#1857a4}
+@media(max-width:480px){.dares-piket-panel .dares-piket-grid{padding:10px}.dares-piket-panel .dares-piket-card{padding:12px}}
+/* v1.4 medewerkersportaal, QR en statistieken */
+.dares-piket-calendar form{margin:10px 0;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.dares-piket-calendar input,.dares-piket-calendar select{max-width:100%;padding:7px;border:1px solid #cad3dc;border-radius:6px}
+.dares-piket-calendar button{background:#113b60;color:#fff;border:0;border-radius:6px;padding:8px 13px;cursor:pointer}
+.dares-piket-stats{width:100%;border-collapse:collapse}.dares-piket-stats th,.dares-piket-stats td{text-align:left;padding:9px;border-bottom:1px solid #d7dce4}
+.dares-piket-qr{max-width:260px;text-align:center;padding:15px;border:1px solid #e1e4e9;border-radius:10px}.dares-piket-qr img{display:block;margin:0 auto 10px}
+
+/* v1.4.5 — rustige, responsieve maandkalender */
+.dares-calendar-v2{font-family:inherit;color:#142c47;background:#fff;border:1px solid #dce4ed;border-radius:14px;overflow:hidden;box-shadow:0 5px 22px rgba(21,45,75,.06)}
+.dares-calendar-v2 .dares-calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:19px 22px 17px;border-top:5px solid #ffc400;background:#fff}
+.dares-calendar-v2 .dares-calendar-kicker{display:block;font-size:10px;letter-spacing:.115em;color:#67809b;font-weight:800;margin-bottom:4px}
+.dares-calendar-v2 .dares-calendar-title h3{font-size:clamp(20px,2vw,26px);color:#10345c;font-weight:800;line-height:1.25;margin:0;text-transform:capitalize}
+.dares-calendar-v2 .dares-calendar-actions{display:flex;gap:6px;align-items:center}
+.dares-calendar-v2 .dares-calendar-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #d5e0ec;border-radius:8px;background:#fff;color:#173e65;font-weight:700;min-width:36px;height:36px;padding:0 10px;box-sizing:border-box}
+.dares-calendar-v2 .dares-calendar-actions a:hover{background:#eef5fd;border-color:#91b5dc}
+.dares-calendar-v2 .dares-calendar-actions .dares-calendar-nav{font-size:28px;font-weight:400;line-height:1}
+.dares-calendar-v2 .dares-calendar-scroll{overflow-x:auto}
+.dares-calendar-v2 .dares-calendar-grid{min-width:700px;gap:1px;background:#dfe7f0;border-top:1px solid #dfe7f0;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dares-calendar-v2 .dares-cal-head{background:#edf3fa;border:0;padding:12px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#526a82}
+.dares-calendar-v2 .dares-cal-empty{background:#f7f9fc;min-height:125px}
+.dares-calendar-v2 .dares-cal-day{min-width:0;min-height:125px;background:#fff;padding:9px;border:0;box-sizing:border-box}
+.dares-calendar-v2 .dares-cal-day.is-today{background:#fffdf3;box-shadow:inset 0 0 0 2px #eeb600}
+.dares-calendar-v2 .dares-cal-day.is-empty{background:#fbfcfe}
+.dares-calendar-v2 .dares-cal-date{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:10px}
+.dares-calendar-v2 .dares-cal-num{font-size:13px;font-weight:800;color:#193a5d;display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px}
+.dares-calendar-v2 .is-today .dares-cal-num{background:#ffc400;border-radius:50%;color:#102c49}
+.dares-calendar-v2 .dares-cal-now{font-size:9px;font-weight:800;color:#866600;text-transform:uppercase}
+.dares-calendar-v2 .dares-cal-entry{display:flex;flex-direction:column;gap:3px;background:#eaf2fc;border-left:3px solid #2361a1;border-radius:6px;padding:8px 7px;margin:5px 0;color:#153858;overflow:hidden;overflow-wrap:anywhere;line-height:1.3}
+.dares-calendar-v2 .dares-cal-entry + .dares-cal-entry{background:#fff3da;border-left-color:#e5a100}
+.dares-calendar-v2 .dares-cal-person{font-size:12px;font-weight:800}
+.dares-calendar-v2 .dares-cal-group{font-size:10px;color:#526b84}
+.dares-calendar-v2 .dares-cal-time{font-size:10px;font-weight:700;color:#235582}
+.dares-calendar-v2 .dares-cal-no-duty{font-size:14px;color:#c7d2dd}
+.dares-calendar-v2 .dares-calendar-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 20px;background:#f8fafc;color:#5e738a;font-size:11px}
+.dares-calendar-v2 .dares-cal-legend-dot{display:inline-block;width:8px;height:8px;background:#2361a1;border-radius:50%;margin-right:5px}
+@media(max-width:780px){.dares-calendar-v2 .dares-calendar-toolbar{padding:14px}.dares-calendar-v2 .dares-calendar-grid{min-width:630px}.dares-calendar-v2 .dares-cal-day{min-height:110px;padding:6px}.dares-calendar-v2 .dares-cal-entry{padding:6px 5px}.dares-calendar-v2 .dares-calendar-foot{padding:10px 14px}}
+
+/* v1.4.6 - weekrooster met aaneengesloten dienstbalken */
+.dares-cal-weeks .dares-weeks-scroll{overflow-x:auto}
+.dares-cal-weeks .dares-weeks-body{min-width:650px;padding:14px 18px}
+.dares-cal-weeks .dares-week-section{margin:10px 0 20px;border:1px solid #d9e4ef;border-radius:10px;overflow:hidden}
+.dares-cal-weeks .dares-week-caption{font-size:12px;font-weight:800;background:#f4f8fd;color:#17466d;padding:9px 12px}
+.dares-cal-weeks .dares-week-days{display:grid;grid-template-columns:repeat(7,1fr);background:#f8fafc}
+.dares-cal-weeks .dares-week-days span{text-align:center;padding:9px 0;font-size:12px;border-right:1px solid #e0e8f2;color:#526a82}
+.dares-cal-weeks .dares-week-days span:last-child{border:0}
+.dares-cal-weeks .dares-week-days b{color:#153b60}
+.dares-cal-weeks .dares-week-track{position:relative;height:70px;background:repeating-linear-gradient(to right,#fff 0,#fff calc(14.2857% - 1px),#e7edf4 calc(14.2857% - 1px),#e7edf4 14.2857%)}
+.dares-cal-weeks .dares-week-bar{position:absolute;top:12px;bottom:12px;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:1px;padding:6px 10px;background:#d9eafc;border-left:3px solid #1c5d9e;border-radius:6px;color:#163a5d;white-space:nowrap;text-overflow:ellipsis}
+.dares-cal-weeks .dares-week-bar strong{font-size:12px;overflow:hidden;text-overflow:ellipsis}
+.dares-cal-weeks .dares-week-bar span{font-size:10px;overflow:hidden;text-overflow:ellipsis}
+.dares-cal-weeks .dares-week-none{text-align:center;color:#8092a6;font-size:12px;padding:22px}
+
+/* v1.4.7: afwezigheid apart zichtbaar in beide kalenders */
+.dares-calendar-v2 .dares-cal-absence{background:#fff1d8;border-left:3px solid #e49a05;border-radius:6px;padding:7px;margin-top:5px;display:flex;flex-direction:column;gap:3px;color:#704b09;overflow-wrap:anywhere}
+.dares-calendar-v2 .dares-cal-absence .dares-cal-group{color:#986516}
+.dares-cal-weeks .dares-week-absence-track{position:relative;min-height:33px;background:repeating-linear-gradient(to right,#fffdf9 0,#fffdf9 calc(14.2857% - 1px),#f2e8d5 calc(14.2857% - 1px),#f2e8d5 14.2857%);border-top:1px dashed #e5d5b8}
+.dares-cal-weeks .dares-week-absence{position:absolute;top:5px;height:23px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;box-sizing:border-box;padding:3px 7px;background:#ffe4ac;border-left:3px solid #e49a05;border-radius:4px;font-size:11px;color:#744b00;font-weight:700}
