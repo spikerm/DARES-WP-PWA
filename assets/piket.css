@@ -71,3 +71,8 @@
 .dares-calendar-v2 .dares-cal-absence .dares-cal-group{color:#986516}
 .dares-cal-weeks .dares-week-absence-track{position:relative;min-height:33px;background:repeating-linear-gradient(to right,#fffdf9 0,#fffdf9 calc(14.2857% - 1px),#f2e8d5 calc(14.2857% - 1px),#f2e8d5 14.2857%);border-top:1px dashed #e5d5b8}
 .dares-cal-weeks .dares-week-absence{position:absolute;top:5px;height:23px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;box-sizing:border-box;padding:3px 7px;background:#ffe4ac;border-left:3px solid #e49a05;border-radius:4px;font-size:11px;color:#744b00;font-weight:700}
+
+/* DARES PWA snelkoppeling onder het actuele piket */
+.dares-piket-pwa-link{padding:0 16px 16px;text-align:center}
+.dares-piket-pwa-open{display:inline-flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;max-width:100%;min-height:43px;padding:10px 18px;background:#ffc400;color:#102b4c!important;font-weight:700;border-radius:9px;text-decoration:none!important;border:1px solid #e1ad00}
+.dares-piket-pwa-open:hover,.dares-piket-pwa-open:focus{background:#f1b900;color:#102b4c!important;outline-offset:2px}
