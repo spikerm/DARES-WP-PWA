@@ -24,6 +24,6 @@ final class Dares_Piket_P2000 {
   $title='DARES P2000 melding';$count=0;
   if($o['audience']==='active'){$active=Dares_Piketrooster::global_current();if($active)$count=Dares_Piket_Push::person((int)$active->person_id,$title,$text,'p2000-'.substr(hash('sha256',$id),0,24));}
   else{global $wpdb;$users=$wpdb->get_col('SELECT DISTINCT user_id FROM '.Dares_Piket_Push::table());foreach($users as $uid)$count+=Dares_Piket_Push::user((int)$uid,$title,$text,'p2000-'.substr(hash('sha256',$id),0,24));}
-  if($history_id)$wpdb->update($table,['push_count'=>$count],['id'=>$history_id],['%d'],['%d']);set_transient($key,1,7*DAY_IN_SECONDS);return ['sent'=>$count,'accepted'=>true,'history_id'=>$history_id];
+  if($history_id)$wpdb->update($table,['push_count'=>$count],['id'=>$history_id],['%d'],['%d']);update_option('dares_piket_last_p2000_push',['at'=>time(),'count'=>$count,'history_id'=>$history_id],false);set_transient($key,1,7*DAY_IN_SECONDS);return ['sent'=>$count,'accepted'=>true,'history_id'=>$history_id];
  }
 }
