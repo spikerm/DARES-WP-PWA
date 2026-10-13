@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Dares Piketrooster
  * Description: Piketgroepen, medewerkers, kalender, widgets en veilige overdracht via de website.
- * Version: 2.8.3
+ * Version: 2.8.4
  * Author: Dares
  * Text Domain: dares-piketrooster
  * Requires PHP: 7.4
  */
 if (!defined('ABSPATH')) exit;
 final class Dares_Piketrooster {
- const VER='2.8.3';
+ const VER='2.8.4';
  public static function init(){
   add_action('admin_menu',[__CLASS__,'menu']);
   add_action('admin_post_dares_piket_save',[__CLASS__,'save']);
@@ -33,7 +33,7 @@ final class Dares_Piketrooster {
  }
  static function groups(){global $wpdb;$t=self::tables();return $wpdb->get_results("SELECT * FROM {$t['groups']} ORDER BY name");}
  static function people($gid=0){global $wpdb;$t=self::tables();return $gid?$wpdb->get_results($wpdb->prepare("SELECT * FROM {$t['people']} WHERE group_id=%d AND active=1 ORDER BY name",$gid)):$wpdb->get_results("SELECT * FROM {$t['people']} ORDER BY name");}
- static function allowed($g){if(current_user_can('manage_options'))return true;if(!is_user_logged_in())return false;$ids=array_filter(array_map('absint',explode(',',(string)$g->manager_ids)));return in_array(get_current_user_id(),$ids,true);}
+ static function allowed($g){if(current_user_can('manage_options'))return true;if(!is_user_logged_in())return false;global $wpdb;if(!class_exists('Dares_Piket_Advanced'))return false;$m=Dares_Piket_Advanced::t('meta');$p=Dares_Piket_Advanced::t('people');return (bool)$wpdb->get_var($wpdb->prepare("SELECT p.id FROM $m m JOIN $p p ON p.id=m.person_id WHERE m.user_id=%d AND p.active=1 LIMIT 1",get_current_user_id()));}
  static function can_edit(){if(!current_user_can('manage_options'))wp_die('Geen toegang.',403);}
  static function menu(){add_menu_page('Dares Piketrooster','Piketrooster','manage_options','dares-piketrooster',[__CLASS__,'admin'],'dashicons-calendar-alt',27);}
  static function save(){self::can_edit();check_admin_referer('dares_piket_save');global $wpdb;$t=self::tables();$type=sanitize_key($_POST['type']??'');$id=absint($_POST['id']??0);$data=[];
@@ -125,7 +125,7 @@ final class Dares_Piketrooster {
    if($active){$out.=Dares_Piket_Advanced::shift_badges($active);} if($a['volgende']==='ja'&&$next)$out.='<p class="dares-piket-next">Volgende: <strong>'.esc_html($next->name).'</strong> — '.esc_html($gid?$g->name:$next->group_name).' ('.esc_html($next->start_at).')</p>';
    if($active&&$a['wisselen']==='ja'&&self::allowed($g)){
     $out.='<div class="dares-piket-change"><label for="dares-piket-person-'.esc_attr($g->id).'">Piket overdragen aan</label><select id="dares-piket-person-'.esc_attr($g->id).'">';
-    foreach(self::people($g->id) as $p){if($active&&(int)$active->person_id===(int)$p->id)continue;$out.='<option value="'.esc_attr($p->id).'">'.esc_html($p->name).'</option>';}
+    foreach(self::people() as $p){if(!$p->active||($active&&(int)$active->person_id===(int)$p->id))continue;$out.='<option value="'.esc_attr($p->id).'">'.esc_html($p->name).' — '.esc_html(self::group_name($all_groups,$p->group_id)).'</option>';}
     $out.='</select><button type="button" data-swap="'.esc_attr($g->id).'"'.(!$active?' disabled title="Geen actieve dienst"':'').'>Piket wisselen</button><div class="dares-piket-message" role="status" aria-live="polite"></div></div>';
    }
    $out.='</section>';
@@ -243,11 +243,11 @@ final class Dares_Piketrooster {
   }
   return $out.'</div></div><div class="dares-calendar-foot">Doorlopende balken tonen de werkelijke begin- en eindtijden. Oranje balken tonen afwezigheid. Dienstwisseling: maandag 18:00.</div></section>';
  }
- static function swap(){if(!is_user_logged_in())wp_send_json_error('Log eerst in.',401);check_ajax_referer('dares_piket_swap','nonce');$gid=absint($_POST['group_id']??0);$pid=absint($_POST['person_id']??0);global $wpdb;$t=self::tables();$g=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$t['groups']} WHERE id=%d",$gid));if(!$g||!self::allowed($g))wp_send_json_error('Geen toestemming.',403);if(!self::person_in_group($pid,$gid))wp_send_json_error('Ongeldige medewerker.',400);
-  $active=self::active_shift($gid);if(!$active)wp_send_json_error('Geen actieve dienst om over te dragen.',400);if((int)$active->person_id===$pid)wp_send_json_error('Deze medewerker heeft al piket.',400);
+ static function swap(){if(!is_user_logged_in())wp_send_json_error('Log eerst in.',401);check_ajax_referer('dares_piket_swap','nonce');$gid=absint($_POST['group_id']??0);$pid=absint($_POST['person_id']??0);global $wpdb;$t=self::tables();$g=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$t['groups']} WHERE id=%d",$gid));if(!$g||!self::allowed($g))wp_send_json_error('Geen toestemming.',403);$target=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$t['people']} WHERE id=%d AND active=1",$pid));if(!$target)wp_send_json_error('Ongeldige medewerker.',400);
+  $active=self::global_current();if(!$active||(int)$active->group_id!==$gid)wp_send_json_error('Geen actieve dienst om over te dragen.',400);if((int)$active->person_id===$pid)wp_send_json_error('Deze medewerker heeft al piket.',400);
   $now=self::now();$end=$active->end_at;$ok=$wpdb->update($t['shifts'],['end_at'=>$now],['id'=>$active->id,'end_at'=>$end]);if($ok!==1)wp_send_json_error('Dienst is inmiddels gewijzigd. Vernieuw de pagina.',409);
-  $inserted=$wpdb->insert($t['shifts'],['group_id'=>$gid,'person_id'=>$pid,'start_at'=>$now,'end_at'=>$end]);if(!$inserted){$wpdb->update($t['shifts'],['end_at'=>$end],['id'=>$active->id,'end_at'=>$now]);wp_send_json_error('Overdracht mislukt.',500);}
-  $wpdb->insert($t['logs'],['group_id'=>$gid,'old_person_id'=>$active->person_id,'new_person_id'=>$pid,'user_id'=>get_current_user_id(),'happened_at'=>$now,'action'=>'swap']);do_action('dares_piket_after_transfer',$active->name,$wpdb->get_var($wpdb->prepare("SELECT name FROM {$t['people']} WHERE id=%d",$pid)),$g->name,(int)$active->person_id,$pid,$now,$wpdb->insert_id);wp_send_json_success(['message'=>'Piket is overgedragen.','html'=>self::shortcode(['groep'=>0,'contact'=>'ja'])]);
+  $inserted=$wpdb->insert($t['shifts'],['group_id'=>(int)$target->group_id,'person_id'=>$pid,'start_at'=>$now,'end_at'=>$end]);if(!$inserted){$wpdb->update($t['shifts'],['end_at'=>$end],['id'=>$active->id,'end_at'=>$now]);wp_send_json_error('Overdracht mislukt.',500);}
+  $wpdb->insert($t['logs'],['group_id'=>$gid,'old_person_id'=>$active->person_id,'new_person_id'=>$pid,'user_id'=>get_current_user_id(),'happened_at'=>$now,'action'=>'swap']);do_action('dares_piket_after_transfer',$active->name,$wpdb->get_var($wpdb->prepare("SELECT name FROM {$t['people']} WHERE id=%d",$pid)),self::group_name(self::groups(),$target->group_id),(int)$active->person_id,$pid,$now,$wpdb->insert_id);wp_send_json_success(['message'=>'Piket is overgedragen.','html'=>self::shortcode(['groep'=>0,'contact'=>'ja'])]);
  }
  static function assets(){wp_enqueue_style('dares-piket',plugins_url('assets/piket.css',__FILE__),[],self::VER);wp_enqueue_script('dares-piket',plugins_url('assets/piket.js',__FILE__),[],self::VER,true);wp_localize_script('dares-piket','DaresPiket',['ajax'=>admin_url('admin-ajax.php'),'nonce'=>wp_create_nonce('dares_piket_swap')]);}
  static function block(){if(!function_exists('register_block_type'))return;register_block_type('dares/piket',['api_version'=>2,'title'=>'Dares Piketrooster','category'=>'widgets','icon'=>'calendar-alt','attributes'=>['groep'=>['type'=>'number','default'=>0]],'render_callback'=>function($attrs){return self::shortcode(['groep'=>$attrs['groep']??0]);}]);}
