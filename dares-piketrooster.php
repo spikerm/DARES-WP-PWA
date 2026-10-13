@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Dares Piketrooster
  * Description: Piketgroepen, medewerkers, kalender, widgets en veilige overdracht via de website.
- * Version: 2.8.5
+ * Version: 2.8.6
  * Author: Dares
  * Text Domain: dares-piketrooster
  * Requires PHP: 7.4
  */
 if (!defined('ABSPATH')) exit;
 final class Dares_Piketrooster {
- const VER='2.8.5';
+ const VER='2.8.6';
  public static function init(){
   add_action('admin_menu',[__CLASS__,'menu']);
   add_action('admin_post_dares_piket_save',[__CLASS__,'save']);
@@ -306,6 +306,9 @@ Dares_Piket_Push::init();
 
 require_once __DIR__.'/includes/p2000.php';
 Dares_Piket_P2000::init();
+
+require_once __DIR__.'/includes/push-demo.php';
+Dares_Piket_Push_Demo::init();
 
 require_once __DIR__.'/includes/system-status.php';
 Dares_Piket_System_Status::init();
