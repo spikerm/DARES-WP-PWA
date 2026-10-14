@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Dares Piketrooster
  * Description: Piketgroepen, medewerkers, kalender, widgets en veilige overdracht via de website.
- * Version: 2.8.6
+ * Version: 2.8.7
  * Author: Dares
  * Text Domain: dares-piketrooster
  * Requires PHP: 7.4
  */
 if (!defined('ABSPATH')) exit;
 final class Dares_Piketrooster {
- const VER='2.8.6';
+ const VER='2.8.7';
  public static function init(){
   add_action('admin_menu',[__CLASS__,'menu']);
   add_action('admin_post_dares_piket_save',[__CLASS__,'save']);
@@ -133,7 +133,9 @@ final class Dares_Piketrooster {
   if(!$gid&&!$visible_group)$out.='<section class="dares-piket-card"><p>Er zijn geen actieve of toekomstige piketdiensten ingepland.</p></section>';
   $out.='</div>';
   $button_enabled=$a['pwa_knop']==='ja'||($a['pwa_knop']!=='nee' && !empty(Dares_Piket_V2::settings()['pwa_button']));
-  if($button_enabled && class_exists('Dares_Piket_PWA') && Dares_Piket_PWA::active()){
+  $visibility=Dares_Piket_V2::settings()['pwa_button_visibility'];
+  $can_see_pwa=($visibility==='all')||($visibility==='logged_in'&&is_user_logged_in())||($visibility==='staff'&& (current_user_can('manage_options') || self::allowed(null)));
+  if($button_enabled && $can_see_pwa && class_exists('Dares_Piket_PWA') && Dares_Piket_PWA::active()){
    $url=Dares_Piket_PWA::endpoint('app');
    $out.='<div class="dares-piket-pwa-link"><a href="'.esc_url($url).'" class="dares-piket-pwa-open" aria-label="Open DARES Piket-app">📱 Open DARES Piket-app <span aria-hidden="true">↗</span></a></div>';
   }
